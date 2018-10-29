@@ -1,24 +1,33 @@
-﻿namespace RoutineAlarmClockAPI.Models
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
+namespace RoutineAlarmClockAPI.Models
 {
     public class Routine
     {
-       // [Required]
+        [Key]
         public int RoutineId { get; set; }
 
-       // [Required]
+        [Required]
         public int UserId { get; set; }
 
-       // [Required]
+        // [Required]
         public string Title { get; set; }
 
-       // [Required]
+        // [Required]
         public string Destination { get; set; }
 
-       // [Required]
-        public string ArrivalTime { get; set; }
+        [Required]
+        [DataType(DataType.Time)]
+        public DateTime ArrivalTime { get; set; }
 
-       // [Required]
-        public string AllotedTime { get; set; }
+        [Required]
+        public int AllotedTime { get; set; }
 
+        [Required]
+        public int RoutineTaskId { get; set; }
+         
     }
 }

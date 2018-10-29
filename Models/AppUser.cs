@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace RoutineAlarmClockAPI.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class AppUser : IdentityUser
     {
         [Required]
         public int Name { get; set; }

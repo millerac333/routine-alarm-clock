@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using RoutineAlarmClockAPI.Models;
 using Microsoft.AspNetCore.Http;
+using RoutineAlarmClockAPI.Data;
 
 namespace RoutineAlarmClockAPI
 {
@@ -39,7 +40,7 @@ namespace RoutineAlarmClockAPI
             services.AddDbContext<RoutineAlarmClockAPI_Context>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("RoutineAlarmClockAPIContext")));
-            services.AddDefaultIdentity<ApplicationUser>()
+            services.AddDefaultIdentity<AppUser>()
                 .AddEntityFrameworkStores<RoutineAlarmClockAPI_Context>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

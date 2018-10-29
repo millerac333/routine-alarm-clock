@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace RoutineAlarmClockAPI.Models
 {
-    public class Task
+    public class AppTask
     {
-        // [Required]
+        [Key]
         public int TaskId { get; set; }
 
         // [Required]
@@ -16,7 +17,8 @@ namespace RoutineAlarmClockAPI.Models
         // [Required]
         public string Description { get; set; }
 
-        // [Required]
+        [Required]
+
         public int AllotedTime { get; set; }
 
         // [Required]
