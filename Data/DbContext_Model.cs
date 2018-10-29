@@ -13,7 +13,7 @@ namespace RoutineAlarmClockAPI.Models
             : base(options)
         { }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Routine> Routine { get; set; }
         public DbSet<Task> Task { get; set; }
 

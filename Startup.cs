@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 //using RoutineAlarmClockAPI.AspNetCore.NewDb.Models;
 using Microsoft.EntityFrameworkCore;
 using RoutineAlarmClockAPI.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace RoutineAlarmClockAPI
 {
@@ -28,8 +29,21 @@ namespace RoutineAlarmClockAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            services.AddDbContext<RoutineAlarmClockAPI_Context>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("RoutineAlarmClockAPIContext")));
+            services.AddDefaultIdentity<ApplicationUser>()
+                .AddEntityFrameworkStores<RoutineAlarmClockAPI_Context>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            var connection = "Data Source=blogging.db";
+            var connection = "RoutineAlarmClockAPIContext";
             services.AddDbContext<RoutineAlarmClockAPI_Context>
                 (options => options.UseSqlServer(connection));
       
