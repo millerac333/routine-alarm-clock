@@ -7,8 +7,10 @@ namespace RoutineAlarmClockAPI.Models
 {
     public class AppUser : IdentityUser
     {
+        public AppUser (){}
+
         [Required]
-        public int Name { get; set; }
+        public string Name { get; set; }
 
         //[Required]
         //public string UserEmail { get; set; }
