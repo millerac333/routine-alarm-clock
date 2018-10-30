@@ -4,10 +4,26 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RoutineAlarmClockAPI.Migrations
 {
-    public partial class attempt2 : Migration
+    public partial class thirteen : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "AppTask",
+                columns: table => new
+                {
+                    AppTaskId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TaskTitle = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    AllotedTime = table.Column<int>(nullable: false),
+                    Rating = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppTask", x => x.AppTaskId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -41,7 +57,7 @@ namespace RoutineAlarmClockAPI.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    Name = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,28 +71,14 @@ namespace RoutineAlarmClockAPI.Migrations
                     RoutineId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<int>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: false),
                     Destination = table.Column<string>(nullable: true),
                     ArrivalTime = table.Column<DateTime>(nullable: false),
-                    AllotedTime = table.Column<int>(nullable: false),
-                    RoutineTaskId = table.Column<int>(nullable: false)
+                    AllotedTime = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Routine", x => x.RoutineId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RoutineTask",
-                columns: table => new
-                {
-                    RoutineTaskId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RoutineId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoutineTask", x => x.RoutineTaskId);
                 });
 
             migrationBuilder.CreateTable(
@@ -186,32 +188,30 @@ namespace RoutineAlarmClockAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppTask",
+                name: "RoutineTask",
                 columns: table => new
                 {
-                    TaskId = table.Column<int>(nullable: false)
+                    RoutineTaskId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    TaskTitle = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    AllotedTime = table.Column<int>(nullable: false),
-                    Rating = table.Column<int>(nullable: false),
-                    RoutineTaskId = table.Column<int>(nullable: true)
+                    RoutineId = table.Column<int>(nullable: false),
+                    AppTaskId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppTask", x => x.TaskId);
+                    table.PrimaryKey("PK_RoutineTask", x => x.RoutineTaskId);
                     table.ForeignKey(
-                        name: "FK_AppTask_RoutineTask_RoutineTaskId",
-                        column: x => x.RoutineTaskId,
-                        principalTable: "RoutineTask",
-                        principalColumn: "RoutineTaskId",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_RoutineTask_AppTask_AppTaskId",
+                        column: x => x.AppTaskId,
+                        principalTable: "AppTask",
+                        principalColumn: "AppTaskId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RoutineTask_Routine_RoutineId",
+                        column: x => x.RoutineId,
+                        principalTable: "Routine",
+                        principalColumn: "RoutineId",
+                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AppTask_RoutineTaskId",
-                table: "AppTask",
-                column: "RoutineTaskId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -251,13 +251,20 @@ namespace RoutineAlarmClockAPI.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoutineTask_AppTaskId",
+                table: "RoutineTask",
+                column: "AppTaskId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoutineTask_RoutineId",
+                table: "RoutineTask",
+                column: "RoutineId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AppTask");
-
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -274,9 +281,6 @@ namespace RoutineAlarmClockAPI.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Routine");
-
-            migrationBuilder.DropTable(
                 name: "RoutineTask");
 
             migrationBuilder.DropTable(
@@ -284,6 +288,12 @@ namespace RoutineAlarmClockAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "AppTask");
+
+            migrationBuilder.DropTable(
+                name: "Routine");
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RoutineAlarmClockAPI.Models
 {
@@ -13,7 +14,7 @@ namespace RoutineAlarmClockAPI.Models
         [Required]
         public int UserId { get; set; }
 
-        // [Required]
+        [Required]
         public string Title { get; set; }
 
         // [Required]
@@ -26,8 +27,11 @@ namespace RoutineAlarmClockAPI.Models
         [Required]
         public int AllotedTime { get; set; }
 
-        [Required]
-        public int RoutineTaskId { get; set; }
-         
+        // [Required]
+        public virtual ICollection<RoutineTask> RoutineTasks { get; set; }
+
+        [NotMapped]
+        public List<AppTask> AppTasks { get; set; }
+
     }
 }

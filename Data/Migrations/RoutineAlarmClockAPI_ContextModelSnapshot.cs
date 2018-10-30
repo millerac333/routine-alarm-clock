@@ -135,23 +135,21 @@ namespace RoutineAlarmClockAPI.Migrations
 
             modelBuilder.Entity("RoutineAlarmClockAPI.Models.AppTask", b =>
                 {
-                    b.Property<int>("TaskId")
+                    b.Property<int>("AppTaskId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AllotedTime");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
                     b.Property<int>("Rating");
 
-                    b.Property<int?>("RoutineTaskId");
+                    b.Property<string>("TaskTitle")
+                        .IsRequired();
 
-                    b.Property<string>("TaskTitle");
-
-                    b.HasKey("TaskId");
-
-                    b.HasIndex("RoutineTaskId");
+                    b.HasKey("AppTaskId");
 
                     b.ToTable("AppTask");
                 });
@@ -175,7 +173,8 @@ namespace RoutineAlarmClockAPI.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
-                    b.Property<int>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -221,9 +220,8 @@ namespace RoutineAlarmClockAPI.Migrations
 
                     b.Property<string>("Destination");
 
-                    b.Property<int>("RoutineTaskId");
-
-                    b.Property<string>("Title");
+                    b.Property<string>("Title")
+                        .IsRequired();
 
                     b.Property<int>("UserId");
 
@@ -238,9 +236,15 @@ namespace RoutineAlarmClockAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AppTaskId");
+
                     b.Property<int>("RoutineId");
 
                     b.HasKey("RoutineTaskId");
+
+                    b.HasIndex("AppTaskId");
+
+                    b.HasIndex("RoutineId");
 
                     b.ToTable("RoutineTask");
                 });
@@ -290,11 +294,17 @@ namespace RoutineAlarmClockAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("RoutineAlarmClockAPI.Models.AppTask", b =>
+            modelBuilder.Entity("RoutineAlarmClockAPI.Models.RoutineTask", b =>
                 {
-                    b.HasOne("RoutineAlarmClockAPI.Models.RoutineTask")
+                    b.HasOne("RoutineAlarmClockAPI.Models.AppTask", "AppTasks")
                         .WithMany("RoutineTasks")
-                        .HasForeignKey("RoutineTaskId");
+                        .HasForeignKey("AppTaskId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("RoutineAlarmClockAPI.Models.Routine", "Routines")
+                        .WithMany("RoutineTasks")
+                        .HasForeignKey("RoutineId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

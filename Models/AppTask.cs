@@ -9,19 +9,21 @@ namespace RoutineAlarmClockAPI.Models
     public class AppTask
     {
         [Key]
-        public int TaskId { get; set; }
+        public int AppTaskId { get; set; }
 
-        // [Required]
+        [Required]
         public string TaskTitle { get; set; }
 
-        // [Required]
+        [Required]
         public string Description { get; set; }
 
         [Required]
-
         public int AllotedTime { get; set; }
 
         // [Required]
         public int Rating { get; set; }
-    }
+
+        // [Required]
+        public virtual ICollection<RoutineTask> RoutineTasks { get; set; } 
+        }
 }
