@@ -11,6 +11,11 @@ namespace RoutineAlarmClockAPI.Models
         [Key]
         public int AppTaskId { get; set; }
 
+        public AppUser AppUser { get; set; }
+
+        [Required]
+        public string AppUserId { get; set; }
+
         [Required]
         public string TaskTitle { get; set; }
 

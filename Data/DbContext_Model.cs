@@ -21,30 +21,30 @@ namespace RoutineAlarmClockAPI.Data
         public DbSet<RoutineTask> RoutineTask { get; set; }
 
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
 
-            AppUser user = new AppUser
-            {
-                Name = "Aaron",
-                UserName = "Aaron@gmail.com",
-                NormalizedUserName = "AARON",
-                Email = "Aaron@gmail.com",
-                NormalizedEmail = "AARON@GMAIL.COM",
-                EmailConfirmed = true,
-                LockoutEnabled = false,
-                SecurityStamp = Guid.NewGuid().ToString("D")
-            };
-            var passwordHash = new PasswordHasher<AppUser>();
-            user.PasswordHash = passwordHash.HashPassword(user, "FalconPunch");
-            modelBuilder.Entity<AppUser>().HasData(user);
+//            AppUser user = new AppUser
+//            {
+//                Name = "Aaron",
+//                UserName = "Aaron@gmail.com",
+//                NormalizedUserName = "AARON",
+//                Email = "Aaron@gmail.com",
+//                NormalizedEmail = "AARON@GMAIL.COM",
+//                EmailConfirmed = true,
+//                LockoutEnabled = false,
+//                SecurityStamp = Guid.NewGuid().ToString("D")
+//            };
+//            var passwordHash = new PasswordHasher<AppUser>();
+//            user.PasswordHash = passwordHash.HashPassword(user, "FalconPunch");
+//            modelBuilder.Entity<AppUser>().HasData(user);
 
 
-            modelBuilder.Entity<AppTask>().HasData(
+//            modelBuilder.Entity<AppTask>().HasData(
             }
 }
 
