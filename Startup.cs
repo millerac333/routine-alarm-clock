@@ -43,6 +43,12 @@ namespace RoutineAlarmClockAPI
             services.AddDefaultIdentity<AppUser>()
                 .AddEntityFrameworkStores<RoutineAlarmClockAPI_Context>();
 
+            services.AddCors(o => o.AddPolicy("RAC-Policy", builder => {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            }));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             var connection = "RoutineAlarmClockAPIContext";
             services.AddDbContext<RoutineAlarmClockAPI_Context>

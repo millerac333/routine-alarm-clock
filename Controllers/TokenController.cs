@@ -18,7 +18,7 @@ namespace RoutineAlarmClockAPI.Controllers
 
     [Route("/api/token")]
     [ApiController]
-    [EnableCors("JukeboxPolicy")]
+    [EnableCors("RAC-Policy")]
     public class TokenController : ControllerBase
     {
         private RoutineAlarmClockAPI_Context _context;
