@@ -97,8 +97,8 @@ namespace RoutineAlarmClockAPI.Data
             modelBuilder.Entity<Routine>().HasData(
                 new Routine()
                 {
-                    AppUserId = user.Id,
                     RoutineId = 1,
+                    AppUserId = user.Id,
                     Title = "Work Solo",
                     Destination = "Nashville Software School",
                     ArrivalTime = 450,
@@ -106,8 +106,8 @@ namespace RoutineAlarmClockAPI.Data
                 },
                 new Routine()
                 {
-                    AppUserId = user.Id,
                     RoutineId = 2,
+                    AppUserId = user.Id,
                     Title = "Work Baby",
                     Destination = "Nashville Software School",
                     ArrivalTime = 540,
