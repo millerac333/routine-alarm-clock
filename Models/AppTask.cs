@@ -24,7 +24,7 @@ namespace RoutineAlarmClockAPI.Models
         public string Description { get; set; }
 
         [Required]
-        [DataType(DataType.Time)]
+        [DataType(DataType.Duration)]
         public int AllotedTime { get; set; }
 
         // [Required]

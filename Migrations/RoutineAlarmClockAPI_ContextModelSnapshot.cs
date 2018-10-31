@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RoutineAlarmClockAPI.Data;
 
 namespace RoutineAlarmClockAPI.Migrations
 {
     [DbContext(typeof(RoutineAlarmClockAPI_Context))]
-    [Migration("20181030183853_thirteen")]
-    partial class thirteen
+    partial class RoutineAlarmClockAPI_ContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,15 +141,20 @@ namespace RoutineAlarmClockAPI.Migrations
 
                     b.Property<int>("AllotedTime");
 
+                    b.Property<string>("AppUserId");
+
                     b.Property<string>("Description")
-                        .IsRequired();
+                        .HasMaxLength(150);
 
                     b.Property<int>("Rating");
 
                     b.Property<string>("TaskTitle")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasMaxLength(75);
 
                     b.HasKey("AppTaskId");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("AppTask");
                 });
@@ -218,16 +221,20 @@ namespace RoutineAlarmClockAPI.Migrations
 
                     b.Property<int>("AllotedTime");
 
-                    b.Property<DateTime>("ArrivalTime");
+                    b.Property<string>("AppUserId");
 
-                    b.Property<string>("Destination");
+                    b.Property<int>("ArrivalTime");
+
+                    b.Property<string>("Destination")
+                        .HasMaxLength(150);
 
                     b.Property<string>("Title")
-                        .IsRequired();
-
-                    b.Property<int>("UserId");
+                        .IsRequired()
+                        .HasMaxLength(75);
 
                     b.HasKey("RoutineId");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Routine");
                 });
@@ -294,6 +301,20 @@ namespace RoutineAlarmClockAPI.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("RoutineAlarmClockAPI.Models.AppTask", b =>
+                {
+                    b.HasOne("RoutineAlarmClockAPI.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId");
+                });
+
+            modelBuilder.Entity("RoutineAlarmClockAPI.Models.Routine", b =>
+                {
+                    b.HasOne("RoutineAlarmClockAPI.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId");
                 });
 
             modelBuilder.Entity("RoutineAlarmClockAPI.Models.RoutineTask", b =>

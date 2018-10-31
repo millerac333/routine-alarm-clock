@@ -10,8 +10,8 @@ using RoutineAlarmClockAPI.Data;
 namespace RoutineAlarmClockAPI.Migrations
 {
     [DbContext(typeof(RoutineAlarmClockAPI_Context))]
-    [Migration("20181031132112_5thteen")]
-    partial class _5thteen
+    [Migration("20181031155842_venti")]
+    partial class venti
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -225,7 +225,7 @@ namespace RoutineAlarmClockAPI.Migrations
 
                     b.Property<string>("AppUserId");
 
-                    b.Property<DateTime>("ArrivalTime");
+                    b.Property<int>("ArrivalTime");
 
                     b.Property<string>("Destination")
                         .HasMaxLength(150);

@@ -24,11 +24,11 @@ namespace RoutineAlarmClockAPI.Models
         public string Destination { get; set; }
 
         [Required]
-        [DataType(DataType.DateTime)]
-        public DateTime ArrivalTime { get; set; }
+        [DataType(DataType.Duration)]
+        public int ArrivalTime { get; set; }
 
         [Required]
-        [DataType(DataType.Time)]
+        [DataType(DataType.Duration)]
         public int AllotedTime { get; set; }
 
         // [Required]
