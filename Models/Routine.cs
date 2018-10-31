@@ -13,20 +13,22 @@ namespace RoutineAlarmClockAPI.Models
 
         public AppUser AppUser { get; set; }
 
-        [Required]
+        // [Required]
         public string AppUserId { get; set; }
 
         [Required]
+        [StringLength(75)]
         public string Title { get; set; }
 
-        // [Required]
+        [StringLength(150)]
         public string Destination { get; set; }
 
         [Required]
-        [DataType(DataType.Time)]
+        [DataType(DataType.DateTime)]
         public DateTime ArrivalTime { get; set; }
 
         [Required]
+        [DataType(DataType.Time)]
         public int AllotedTime { get; set; }
 
         // [Required]
