@@ -1,4 +1,8 @@
-﻿using System;
+﻿// "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiSG90QERpZ2l0eURvZy5jb20iLCJuYmYiOiIxNTQxMDg1MDY4IiwiZXhwIjoiMTU0MTE3MTQ2OCJ9.oKX8sYlnr1hce4lGOekp_xBGoWnO690xmKtTUUCceZI"
+// Jewel
+// Hot@DigityDog.com
+// Gigity
+using System;
 using System.Linq;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
