@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RoutineAlarmClockAPI.Data;
 using RoutineAlarmClockAPI.Models;
+using Newtonsoft.Json;
 
 namespace RoutineAlarmClockAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("RAC-Policy")]
     public class AppTasksController : ControllerBase
     {
         private readonly RoutineAlarmClockAPI_Context _context;
@@ -30,8 +33,7 @@ namespace RoutineAlarmClockAPI.Controllers
             var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
 
             return _context.AppTask
-                // .Include(t => t.AppUser
-                .Where(t => t.AppUser.Id == user.Id);
+                .Where(t => t.AppUserId == user.Id);
         }
 
         // GET: api/AppTasks/5
@@ -102,11 +104,11 @@ namespace RoutineAlarmClockAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            appTask.AppUser = user;
+            appTask.AppUserId = user.Id;
             _context.AppTask.Add(appTask);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAppTask", new { id = appTask.AppTaskId }, appTask);
+            return CreatedAtAction("GetAppTask", new { id = appTask.AppTaskId });
         }
 
         // DELETE: api/AppTasks/5

@@ -12,9 +12,7 @@ namespace RoutineAlarmClockAPI.Models
         public int RoutineId { get; set; }
 
         public AppUser AppUser { get; set; }
-
-        //[Required]
-        //public string AppUserId { get; set; }
+        public string AppUserId { get; set; }
 
         [Required]
         [StringLength(75)]

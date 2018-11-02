@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace RoutineAlarmClockAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("RAC-Policy")]
     public class RoutinesController : ControllerBase
     {
         private readonly RoutineAlarmClockAPI_Context _context;

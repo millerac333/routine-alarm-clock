@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Http;
 using RoutineAlarmClockAPI.Data;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace RoutineAlarmClockAPI
 {
@@ -42,6 +43,7 @@ namespace RoutineAlarmClockAPI
             services.AddDbContext<RoutineAlarmClockAPI_Context>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("RoutineAlarmClockAPIContext")));
+
             services.AddDefaultIdentity<AppUser>()
                 .AddEntityFrameworkStores<RoutineAlarmClockAPI_Context>();
 
@@ -53,8 +55,13 @@ namespace RoutineAlarmClockAPI
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             var connection = "RoutineAlarmClockAPIContext";
+
             services.AddDbContext<RoutineAlarmClockAPI_Context>
                 (options => options.UseSqlServer(connection));
+
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
 
             // Set up JWT authentication service
             services.AddAuthentication(options => {

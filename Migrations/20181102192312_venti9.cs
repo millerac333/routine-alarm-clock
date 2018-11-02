@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RoutineAlarmClockAPI.Migrations
 {
-    public partial class twentysix : Migration
+    public partial class venti9 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
