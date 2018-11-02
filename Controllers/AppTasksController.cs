@@ -27,7 +27,11 @@ namespace RoutineAlarmClockAPI.Controllers
         [Authorize]
         public IEnumerable<AppTask> GetAppTask()
         {
-            return _context.AppTask;
+            var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
+
+            return _context.AppTask
+                // .Include(t => t.AppUser
+                .Where(t => t.AppUser.Id == user.Id);
         }
 
         // GET: api/AppTasks/5
@@ -90,11 +94,15 @@ namespace RoutineAlarmClockAPI.Controllers
         [Authorize]
         public async Task<IActionResult> PostAppTask([FromBody] AppTask appTask)
         {
+            var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
+
+            Console.WriteLine("test");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            appTask.AppUser = user;
             _context.AppTask.Add(appTask);
             await _context.SaveChangesAsync();
 
