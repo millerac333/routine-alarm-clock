@@ -24,6 +24,7 @@ namespace RoutineAlarmClockAPI.Controllers
 
         // GET: api/AppTasks
         [HttpGet]
+        [Authorize]
         public IEnumerable<AppTask> GetAppTask()
         {
             return _context.AppTask;
@@ -31,6 +32,7 @@ namespace RoutineAlarmClockAPI.Controllers
 
         // GET: api/AppTasks/5
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetAppTask([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -49,39 +51,39 @@ namespace RoutineAlarmClockAPI.Controllers
         }
 
         // PUT: api/AppTasks/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAppTask([FromRoute] int id, [FromBody] AppTask appTask)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutAppTask([FromRoute] int id, [FromBody] AppTask appTask)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != appTask.AppTaskId)
-            {
-                return BadRequest();
-            }
+        //    if (id != appTask.AppTaskId)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            _context.Entry(appTask).State = EntityState.Modified;
+        //    _context.Entry(appTask).State = EntityState.Modified;
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AppTaskExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!AppTaskExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         // POST: api/AppTasks
         [HttpPost]
@@ -101,6 +103,7 @@ namespace RoutineAlarmClockAPI.Controllers
 
         // DELETE: api/AppTasks/5
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteAppTask([FromRoute] int id)
         {
             if (!ModelState.IsValid)
