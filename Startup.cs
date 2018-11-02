@@ -15,6 +15,8 @@ using Microsoft.EntityFrameworkCore;
 using RoutineAlarmClockAPI.Models;
 using Microsoft.AspNetCore.Http;
 using RoutineAlarmClockAPI.Data;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace RoutineAlarmClockAPI
 {
@@ -53,7 +55,23 @@ namespace RoutineAlarmClockAPI
             var connection = "RoutineAlarmClockAPIContext";
             services.AddDbContext<RoutineAlarmClockAPI_Context>
                 (options => options.UseSqlServer(connection));
-      
+
+            // Set up JWT authentication service
+            services.AddAuthentication(options => {
+                options.DefaultAuthenticateScheme = "Jwt";
+                options.DefaultChallengeScheme = "Jwt";
+            }).AddJwtBearer("Jwt", options => {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("7A735D7B-1A19-4D8A-9CFA-99F55483013F")),
+                    ValidateLifetime = true, //validate the expiration and not before values in the token
+                    ClockSkew = TimeSpan.FromMinutes(5) //5 minute tolerance for the expiration date
+                };
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,7 +87,10 @@ namespace RoutineAlarmClockAPI
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
+            app.UseCors();
         }
     }
 }
+       

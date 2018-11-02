@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RoutineAlarmClockAPI.Migrations
 {
-    public partial class seedData : Migration
+    public partial class twentysix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -224,32 +224,6 @@ namespace RoutineAlarmClockAPI.Migrations
                         principalTable: "Routine",
                         principalColumn: "RoutineId",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "a64ffd83-15e9-497b-82c1-0c1bded333a9", 0, "f173bbe0-4983-4f75-aa8c-0963f53f1260", "Aaron@gmail.com", true, false, null, "Aaron", "AARON@GMAIL.COM", "AARON", "AQAAAAEAACcQAAAAENJ+myjNSZAfzWBoWJ8oulwEmFrSBf1BMcuBSkj5QyKrsb50MUML4FeDZkaKpJnq3g==", null, false, "14794b0b-08f0-414a-bd9d-0f95ad250bed", false, "Aaron@gmail.com" });
-
-            migrationBuilder.InsertData(
-                table: "AppTask",
-                columns: new[] { "AppTaskId", "AllotedTime", "AppUserId", "Description", "Rating", "TaskTitle" },
-                values: new object[,]
-                {
-                    { 1, 5, "a64ffd83-15e9-497b-82c1-0c1bded333a9", "Brush and floss teeth", 4, "Brush Teeth" },
-                    { 2, 20, "a64ffd83-15e9-497b-82c1-0c1bded333a9", "Feed Olvia prunes and oatmeal; Dress her in embarrasing outfit", 5, "Feed and Dress Baby" },
-                    { 3, 2, "a64ffd83-15e9-497b-82c1-0c1bded333a9", "Outfit: Red Kilt and green sleeveless shirt", 3, "Get Dressed" },
-                    { 4, 5, "a64ffd83-15e9-497b-82c1-0c1bded333a9", "Defrost ice off or winshield and warm car", 1, "Defrost Car" },
-                    { 5, 10, "a64ffd83-15e9-497b-82c1-0c1bded333a9", "wash the stench off", 2, "Shower" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Routine",
-                columns: new[] { "RoutineId", "AllotedTime", "AppUserId", "ArrivalTime", "Destination", "Title" },
-                values: new object[,]
-                {
-                    { 1, 30, "a64ffd83-15e9-497b-82c1-0c1bded333a9", 450, "Nashville Software School", "Work Solo" },
-                    { 2, 45, "a64ffd83-15e9-497b-82c1-0c1bded333a9", 540, "Nashville Software School", "Work Baby" }
                 });
 
             migrationBuilder.CreateIndex(

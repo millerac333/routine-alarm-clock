@@ -13,7 +13,7 @@ namespace RoutineAlarmClockAPI.Models
         [Required]
         public string Password { get; set; }
 
-        // [Required]
+        [Required]
         public string Name { get; set; }
 
     }

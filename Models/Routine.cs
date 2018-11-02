@@ -13,8 +13,8 @@ namespace RoutineAlarmClockAPI.Models
 
         public AppUser AppUser { get; set; }
 
-        // [Required]
-        public string AppUserId { get; set; }
+        //[Required]
+        //public string AppUserId { get; set; }
 
         [Required]
         [StringLength(75)]
@@ -31,7 +31,6 @@ namespace RoutineAlarmClockAPI.Models
         [DataType(DataType.Duration)]
         public int AllotedTime { get; set; }
 
-        // [Required]
         public virtual ICollection<RoutineTask> RoutineTasks { get; set; }
 
         [NotMapped]

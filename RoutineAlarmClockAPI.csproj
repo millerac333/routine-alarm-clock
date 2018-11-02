@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20181101191216_RequiredInModels.cs" />
+    <Compile Remove="Migrations\20181101191216_RequiredInModels.Designer.cs" />
+    <Compile Remove="Migrations\20181101194142_RequiredPropModels.cs" />
+    <Compile Remove="Migrations\20181101194142_RequiredPropModels.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

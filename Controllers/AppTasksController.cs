@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -84,6 +85,7 @@ namespace RoutineAlarmClockAPI.Controllers
 
         // POST: api/AppTasks
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> PostAppTask([FromBody] AppTask appTask)
         {
             if (!ModelState.IsValid)

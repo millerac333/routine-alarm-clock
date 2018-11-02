@@ -157,14 +157,6 @@ namespace RoutineAlarmClockAPI.Migrations
                     b.HasIndex("AppUserId");
 
                     b.ToTable("AppTask");
-
-                    b.HasData(
-                        new { AppTaskId = 1, AllotedTime = 5, AppUserId = "a64ffd83-15e9-497b-82c1-0c1bded333a9", Description = "Brush and floss teeth", Rating = 4, TaskTitle = "Brush Teeth" },
-                        new { AppTaskId = 2, AllotedTime = 20, AppUserId = "a64ffd83-15e9-497b-82c1-0c1bded333a9", Description = "Feed Olvia prunes and oatmeal; Dress her in embarrasing outfit", Rating = 5, TaskTitle = "Feed and Dress Baby" },
-                        new { AppTaskId = 3, AllotedTime = 2, AppUserId = "a64ffd83-15e9-497b-82c1-0c1bded333a9", Description = "Outfit: Red Kilt and green sleeveless shirt", Rating = 3, TaskTitle = "Get Dressed" },
-                        new { AppTaskId = 4, AllotedTime = 5, AppUserId = "a64ffd83-15e9-497b-82c1-0c1bded333a9", Description = "Defrost ice off or winshield and warm car", Rating = 1, TaskTitle = "Defrost Car" },
-                        new { AppTaskId = 5, AllotedTime = 10, AppUserId = "a64ffd83-15e9-497b-82c1-0c1bded333a9", Description = "wash the stench off", Rating = 2, TaskTitle = "Shower" }
-                    );
                 });
 
             modelBuilder.Entity("RoutineAlarmClockAPI.Models.AppUser", b =>
@@ -219,10 +211,6 @@ namespace RoutineAlarmClockAPI.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasData(
-                        new { Id = "a64ffd83-15e9-497b-82c1-0c1bded333a9", AccessFailedCount = 0, ConcurrencyStamp = "f173bbe0-4983-4f75-aa8c-0963f53f1260", Email = "Aaron@gmail.com", EmailConfirmed = true, LockoutEnabled = false, Name = "Aaron", NormalizedEmail = "AARON@GMAIL.COM", NormalizedUserName = "AARON", PasswordHash = "AQAAAAEAACcQAAAAENJ+myjNSZAfzWBoWJ8oulwEmFrSBf1BMcuBSkj5QyKrsb50MUML4FeDZkaKpJnq3g==", PhoneNumberConfirmed = false, SecurityStamp = "14794b0b-08f0-414a-bd9d-0f95ad250bed", TwoFactorEnabled = false, UserName = "Aaron@gmail.com" }
-                    );
                 });
 
             modelBuilder.Entity("RoutineAlarmClockAPI.Models.Routine", b =>
@@ -249,11 +237,6 @@ namespace RoutineAlarmClockAPI.Migrations
                     b.HasIndex("AppUserId");
 
                     b.ToTable("Routine");
-
-                    b.HasData(
-                        new { RoutineId = 1, AllotedTime = 30, AppUserId = "a64ffd83-15e9-497b-82c1-0c1bded333a9", ArrivalTime = 450, Destination = "Nashville Software School", Title = "Work Solo" },
-                        new { RoutineId = 2, AllotedTime = 45, AppUserId = "a64ffd83-15e9-497b-82c1-0c1bded333a9", ArrivalTime = 540, Destination = "Nashville Software School", Title = "Work Baby" }
-                    );
                 });
 
             modelBuilder.Entity("RoutineAlarmClockAPI.Models.RoutineTask", b =>
@@ -323,14 +306,14 @@ namespace RoutineAlarmClockAPI.Migrations
             modelBuilder.Entity("RoutineAlarmClockAPI.Models.AppTask", b =>
                 {
                     b.HasOne("RoutineAlarmClockAPI.Models.AppUser", "AppUser")
-                        .WithMany()
+                        .WithMany("AppTasks")
                         .HasForeignKey("AppUserId");
                 });
 
             modelBuilder.Entity("RoutineAlarmClockAPI.Models.Routine", b =>
                 {
                     b.HasOne("RoutineAlarmClockAPI.Models.AppUser", "AppUser")
-                        .WithMany()
+                        .WithMany("Routines")
                         .HasForeignKey("AppUserId");
                 });
 
