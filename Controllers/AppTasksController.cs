@@ -40,13 +40,19 @@ namespace RoutineAlarmClockAPI.Controllers
         [HttpGet("{id}")]
         [Authorize]
         public async Task<IActionResult> GetAppTask([FromRoute] int id)
-        {
+            {
+                var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
+
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var appTask = await _context.AppTask.FindAsync(id);
+            var appTask = await _context.AppTask
+                            .Include(t => t.AppUser)
+                            .FirstOrDefaultAsync(t => t.AppUser == user);
+                            //.SingleAsync();
 
             if (appTask == null)
             {
@@ -98,7 +104,6 @@ namespace RoutineAlarmClockAPI.Controllers
         {
             var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
 
-            Console.WriteLine("test");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
