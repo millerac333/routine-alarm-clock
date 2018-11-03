@@ -121,6 +121,8 @@ namespace RoutineAlarmClockAPI.Controllers
         [Authorize]
         public async Task<IActionResult> DeleteAppTask([FromRoute] int id)
         {
+            var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
