@@ -28,6 +28,8 @@ namespace RoutineAlarmClockAPI.Models
         // [Required]
         public int Rating { get; set; }
 
+        public bool IsActive { get; set; }
+
         // [Required]
         public virtual ICollection<RoutineTask> RoutineTasks { get; set; } 
         }

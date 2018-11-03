@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RoutineAlarmClockAPI.Migrations
 {
-    public partial class venti9 : Migration
+    public partial class BOOmigrate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -79,7 +79,8 @@ namespace RoutineAlarmClockAPI.Migrations
                     TaskTitle = table.Column<string>(maxLength: 75, nullable: false),
                     Description = table.Column<string>(maxLength: 150, nullable: true),
                     AllotedTime = table.Column<int>(nullable: false),
-                    Rating = table.Column<int>(nullable: false)
+                    Rating = table.Column<int>(nullable: false),
+                    IsActive = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

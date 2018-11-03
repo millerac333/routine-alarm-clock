@@ -146,6 +146,8 @@ namespace RoutineAlarmClockAPI.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(150);
 
+                    b.Property<bool>("IsActive");
+
                     b.Property<int>("Rating");
 
                     b.Property<string>("TaskTitle")

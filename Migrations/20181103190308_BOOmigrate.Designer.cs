@@ -10,8 +10,8 @@ using RoutineAlarmClockAPI.Data;
 namespace RoutineAlarmClockAPI.Migrations
 {
     [DbContext(typeof(RoutineAlarmClockAPI_Context))]
-    [Migration("20181102192312_venti9")]
-    partial class venti9
+    [Migration("20181103190308_BOOmigrate")]
+    partial class BOOmigrate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -147,6 +147,8 @@ namespace RoutineAlarmClockAPI.Migrations
 
                     b.Property<string>("Description")
                         .HasMaxLength(150);
+
+                    b.Property<bool>("IsActive");
 
                     b.Property<int>("Rating");
 
