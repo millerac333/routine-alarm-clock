@@ -29,7 +29,10 @@ namespace RoutineAlarmClockAPI.Controllers
         [Authorize]
         public IEnumerable<Routine> GetRoutine()
         {
-            return _context.Routine;
+            var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
+
+            return _context.Routine
+                .Where(t => t.AppUserId == user.Id); 
         }
 
         // GET: api/Routines/5
@@ -37,12 +40,16 @@ namespace RoutineAlarmClockAPI.Controllers
         [Authorize]
         public async Task<IActionResult> GetRoutine([FromRoute] int id)
         {
+            var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var routine = await _context.Routine.FindAsync(id);
+            var routine = await _context.Routine
+                            .Include(t => t.AppUser)
+                            .FirstOrDefaultAsync(t => t.AppUser == user);
 
             if (routine == null)
             {
@@ -93,15 +100,18 @@ namespace RoutineAlarmClockAPI.Controllers
         [Authorize]
         public async Task<IActionResult> PostRoutine([FromBody] Routine routine)
         {
+            var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            routine.AppUserId = user.Id;
             _context.Routine.Add(routine);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRoutine", new { id = routine.RoutineId }, routine);
+            return CreatedAtAction("GetRoutine", new { id = routine.RoutineId });
         }
 
         // DELETE: api/Routines/5
@@ -109,6 +119,8 @@ namespace RoutineAlarmClockAPI.Controllers
         [Authorize]
         public async Task<IActionResult> DeleteRoutine([FromRoute] int id)
         {
+            var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
