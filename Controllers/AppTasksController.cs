@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RoutineAlarmClockAPI.Data;
 using RoutineAlarmClockAPI.Models;
+using Newtonsoft.Json;
 
 namespace RoutineAlarmClockAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("RAC-Policy")]
     public class AppTasksController : ControllerBase
     {
         private readonly RoutineAlarmClockAPI_Context _context;
@@ -30,21 +33,26 @@ namespace RoutineAlarmClockAPI.Controllers
             var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
 
             return _context.AppTask
-                // .Include(t => t.AppUser
-                .Where(t => t.AppUser.Id == user.Id);
+                .Where(t => t.AppUserId == user.Id);
         }
 
         // GET: api/AppTasks/5
         [HttpGet("{id}")]
         [Authorize]
         public async Task<IActionResult> GetAppTask([FromRoute] int id)
-        {
+            {
+                var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
+
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var appTask = await _context.AppTask.FindAsync(id);
+            var appTask = await _context.AppTask
+                            .Include(t => t.AppUser)
+                            .FirstOrDefaultAsync(t => t.AppUser == user);
+                            //.SingleAsync();
 
             if (appTask == null)
             {
@@ -96,17 +104,16 @@ namespace RoutineAlarmClockAPI.Controllers
         {
             var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
 
-            Console.WriteLine("test");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            appTask.AppUser = user;
+            appTask.AppUserId = user.Id;
             _context.AppTask.Add(appTask);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAppTask", new { id = appTask.AppTaskId }, appTask);
+            return CreatedAtAction("GetAppTask", new { id = appTask.AppTaskId });
         }
 
         // DELETE: api/AppTasks/5
@@ -114,6 +121,8 @@ namespace RoutineAlarmClockAPI.Controllers
         [Authorize]
         public async Task<IActionResult> DeleteAppTask([FromRoute] int id)
         {
+            var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

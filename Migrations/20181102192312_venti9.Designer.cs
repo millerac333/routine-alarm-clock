@@ -10,8 +10,8 @@ using RoutineAlarmClockAPI.Data;
 namespace RoutineAlarmClockAPI.Migrations
 {
     [DbContext(typeof(RoutineAlarmClockAPI_Context))]
-    [Migration("20181101201114_twenty-six")]
-    partial class twentysix
+    [Migration("20181102192312_venti9")]
+    partial class venti9
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
