@@ -60,58 +60,77 @@ namespace RoutineAlarmClockAPI.Controllers
         }
 
         // PUT: api/Routines/5
-        //[HttpPut("{id}")]
-        //[Authorize]
-        //public async Task<IActionResult> PutRoutine([FromRoute] int id, [FromBody] Routine routine)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    if (id != routine.RoutineId)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(routine).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!RoutineExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
-
-        // POST: api/Routines
-        [HttpPost]
+        [HttpPut("{id}")]
         [Authorize]
-        public async Task<IActionResult> PostRoutine([FromBody] Routine routine)
-        {
-            var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
 
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
+        public async Task<IActionResult> ToggleActive([FromRoute] int id)
+        {
+			// Gets the user and the routine to toggle active status
+            var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
+            Routine toggledRoutine = _context.Routine.SingleOrDefault(r => r.RoutineId == id);
+
+		    // user authorize check
+			if (toggledRoutine.AppUserId != user.Id)
+			{
+				return Unauthorized();
             }
 
-            routine.AppUserId = user.Id;
-            _context.Routine.Add(routine);
-            await _context.SaveChangesAsync();
+            // Toggles the routine status and saves to DB
+            toggledRoutine.IsActive = !(toggledRoutine.IsActive);
+			_context.Entry(toggledRoutine).State = EntityState.Modified;
 
-            return CreatedAtAction("GetRoutine", new { id = routine.RoutineId });
+			try
+			{
+				await _context.SaveChangesAsync();
+
+            } catch (DbUpdateConcurrencyException) {
+
+				if (!RoutineExists(id))
+				{
+					return NotFound();
+				} else {
+					throw;
+				}
+			}
+			return NoContent();
+		}
+
+        // POST: /Routines
+        // This method accepts a recipe object with an array of ingredient objects and saves them to the database
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> PostRoutine([FromBody] Routine newRoutine)
+        {
+
+            var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
+            newRoutine.AppUserId = user.Id;
+            
+            // Makes sure the Routine has at least one AppTask
+            bool noAppTasks = (newRoutine.AppTasks == null) || (newRoutine.AppTasks.Count == 0);
+            if (noAppTasks)
+            {
+                return BadRequest();
+            }
+
+            //try
+            //{
+            //    _context.Routine.Add(newRoutine);
+            //    await _context.SaveChangesAsync();
+
+            //    // Assigns the new recipe's primary key to each ingredient in the recipe and saves the ingredients
+            //    foreach (AppTask newRoutineTask in newRoutine.AppTasks)
+            //    {
+            //        newRoutineTask.RoutineTasks = newRoutineTask.AppTaskId;
+            //        _context.AppTask.Add(newRoutineTask);
+            //    }
+            //    await _context.SaveChangesAsync();
+            //}
+            //catch (Exception ex)
+            //{
+            //    // This is just here to handle the mysterious SQL exception that was being thrown for no reason
+            //}
+
+            return CreatedAtAction("GetRecipe", new { id = newRoutine.RoutineId }, newRoutine);
         }
 
         // DELETE: api/Routines/5

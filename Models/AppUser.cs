@@ -15,6 +15,7 @@ namespace RoutineAlarmClockAPI.Models
         public virtual ICollection<Routine> Routines { get; set; }
 
         public virtual ICollection<AppTask> AppTasks { get; set; }
+
     }
 }
 

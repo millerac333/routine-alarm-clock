@@ -10,8 +10,8 @@ using RoutineAlarmClockAPI.Data;
 namespace RoutineAlarmClockAPI.Migrations
 {
     [DbContext(typeof(RoutineAlarmClockAPI_Context))]
-    [Migration("20181103190308_BOOmigrate")]
-    partial class BOOmigrate
+    [Migration("20181103201051_finMigrate")]
+    partial class finMigrate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -148,8 +148,6 @@ namespace RoutineAlarmClockAPI.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(150);
 
-                    b.Property<bool>("IsActive");
-
                     b.Property<int>("Rating");
 
                     b.Property<string>("TaskTitle")
@@ -231,6 +229,8 @@ namespace RoutineAlarmClockAPI.Migrations
 
                     b.Property<string>("Destination")
                         .HasMaxLength(150);
+
+                    b.Property<bool>("IsActive");
 
                     b.Property<string>("Title")
                         .IsRequired()

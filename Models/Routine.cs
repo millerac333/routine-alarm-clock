@@ -29,6 +29,8 @@ namespace RoutineAlarmClockAPI.Models
         [DataType(DataType.Duration)]
         public int AllotedTime { get; set; }
 
+        public bool IsActive { get; set; }
+
         public virtual ICollection<RoutineTask> RoutineTasks { get; set; }
 
         [NotMapped]
