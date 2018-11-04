@@ -95,43 +95,26 @@ namespace RoutineAlarmClockAPI.Controllers
 			return NoContent();
 		}
 
-        // POST: /Routines
-        // This method accepts a recipe object with an array of ingredient objects and saves them to the database
+        // POST: api/Routines
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> PostRoutine([FromBody] Routine newRoutine)
+        public async Task<IActionResult> PostRoutine([FromBody] Routine routine)
         {
-
             var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
-            newRoutine.AppUserId = user.Id;
-            
-            // Makes sure the Routine has at least one AppTask
-            bool noAppTasks = (newRoutine.AppTasks == null) || (newRoutine.AppTasks.Count == 0);
-            if (noAppTasks)
+
+            if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
-            //try
-            //{
-            //    _context.Routine.Add(newRoutine);
-            //    await _context.SaveChangesAsync();
+            routine.AppUserId = user.Id;
+            _context.Routine.Add(routine);
+            await _context.SaveChangesAsync();
 
-            //    // Assigns the new recipe's primary key to each ingredient in the recipe and saves the ingredients
-            //    foreach (AppTask newRoutineTask in newRoutine.AppTasks)
-            //    {
-            //        newRoutineTask.RoutineTasks = newRoutineTask.AppTaskId;
-            //        _context.AppTask.Add(newRoutineTask);
-            //    }
-            //    await _context.SaveChangesAsync();
-            //}
-            //catch (Exception ex)
-            //{
-            //    // This is just here to handle the mysterious SQL exception that was being thrown for no reason
-            //}
-
-            return CreatedAtAction("GetRecipe", new { id = newRoutine.RoutineId }, newRoutine);
+            return CreatedAtAction("GetRoutine", new { id = routine.RoutineId });
         }
+
+
 
         // DELETE: api/Routines/5
         [HttpDelete("{id}")]
