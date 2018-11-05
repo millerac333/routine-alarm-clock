@@ -1,14 +1,16 @@
 import React, { Component } from "react"
-import ApplicationViews from "./Components/ApplicationViews"
+import NavBar from "./components/nav/NavBar"
+import AppViews from "./components/AppViews"
 
 class RoutineClock extends Component {
-  render() {
-    return (
-      <React.Fragment>
-        <ApplicationViews />
-      </React.Fragment>
-    )
-  }
+    render() {
+        return (
+            <React.Fragment>
+                <NavBar />
+                <AppViews />
+            </React.Fragment>
+        )
+    }
 }
-
+    
 export default RoutineClock
