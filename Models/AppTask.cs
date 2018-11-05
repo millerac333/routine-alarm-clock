@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace RoutineAlarmClockAPI.Models
     {
         [Key]
         public int AppTaskId { get; set; }
-
+        [JsonIgnore]
         public AppUser AppUser { get; set; }
         public string AppUserId { get; set; }
 
