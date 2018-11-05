@@ -1,12 +1,12 @@
 import React, { Component } from "react"
-import NavBar from "./components/nav/NavBar"
-import AppViews from "./components/AppViews"
+import NavTabs from "./Components/nav/NavTabs"
+import AppViews from "./Components/AppViews"
 
 class RoutineClock extends Component {
     render() {
         return (
             <React.Fragment>
-                <NavBar />
+                <NavTabs />
                 <AppViews />
             </React.Fragment>
         )
