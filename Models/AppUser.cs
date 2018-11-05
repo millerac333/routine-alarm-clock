@@ -9,7 +9,6 @@ namespace RoutineAlarmClockAPI.Models
     {
         // public AppUser (){}
 
-        [Required]
         public string Name { get; set; }
 
         public virtual ICollection<Routine> Routines { get; set; }

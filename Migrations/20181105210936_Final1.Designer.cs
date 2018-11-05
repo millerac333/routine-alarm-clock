@@ -10,8 +10,8 @@ using RoutineAlarmClockAPI.Data;
 namespace RoutineAlarmClockAPI.Migrations
 {
     [DbContext(typeof(RoutineAlarmClockAPI_Context))]
-    [Migration("20181103201051_finMigrate")]
-    partial class finMigrate
+    [Migration("20181105210936_Final1")]
+    partial class Final1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -180,8 +180,7 @@ namespace RoutineAlarmClockAPI.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
-                    b.Property<string>("Name")
-                        .IsRequired();
+                    b.Property<string>("Name");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
