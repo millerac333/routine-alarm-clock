@@ -6,7 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-export default class FormDialog extends React.Component {
+export default class AppTaskForm extends React.Component {
   state = {
     open: false,
   };
@@ -48,7 +48,7 @@ export default class FormDialog extends React.Component {
               fullWidth
             />
             <TextField
-              id="standard-number"
+              id="AllotedTime"
               label="Alloted Time (minutes)"
               type="number"
               InputLabelProps={{
