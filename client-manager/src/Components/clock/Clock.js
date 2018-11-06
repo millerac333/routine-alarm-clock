@@ -1,94 +1,34 @@
-import React, { Component } from "react";
-import moment from "react-moment"
+import React, { Component } from 'react';
 
-
-export default class Clock extends Component{
-    constructor() {
-        super()
-        this.state = {
-            time: moment().format('LTS'),
-            one: true,
-            two: false,
-            three: false,
-            four: false,
-            background: {
-                backgroundColor: "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16)})
-            },
-            class: ''
-        }
-        this.clicked = this.clicked.bind(this)
+class Clock extends Component {
+    constructor(props) {
+      super(props);
+      var date= this.getTimeString();
+      this.state= {
+        time: date
+      }
+    }
+    getTimeString() {
+      const date = new Date(Date.now()).toLocaleTimeString();
+      return date;
     }
     componentDidMount() {
-        setInterval(()=>{
-            if(this.state.one === true) {
-                this.setState({
-                    time: moment().format('LTS')
-                })
-            }
-            else if(this.state.four === true){
-                this.setState({
-                    time: moment().format('LT')
-                })
-            }
-        },1000)
-    }
-    clicked() {
-        this.setState({
-            background: {
-                backgroundColor: "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16)})
-            }
+      const _this = this;
+      this.timer = setInterval(function(){
+        var date = _this.getTimeString();
+        _this.setState({
+          time: date
         })
-        if(this.state.one === true) {
-            this.setState({class: 'faded'})
-            setTimeout(()=>{
-                this.setState({
-                    time: moment().format('l'),
-                    one: false,
-                    two: true,
-                    class: ''
-                })
-            },200)
-        }
-        else if(this.state.two === true) {
-            this.setState({class: 'faded'})
-            setTimeout(()=>{
-                this.setState({
-                    time: moment().format('MMMM Do YY'),
-                    two: false,
-                    three: true,
-                    class: ''
-                })
-            },200)
-        }
-        else if(this.state.three === true) {
-            this.setState({class: 'faded'})
-            setTimeout(()=>{
-                this.setState({
-                    time: moment().format('LT'),
-                    three: false,
-                    four: true,
-                    class: ''
-                })
-            },200)
-        }
-        else if(this.state.four === true) {
-            this.setState({class: 'faded'})
-            setTimeout(()=>{
-                this.setState({
-                    time: moment().format('LTS'),
-                    four: false,
-                    one: true,
-                    class: ''
-                })
-            },200)
-        }
+      },1000)
+    }
+    componentWillUnmount() {
+        clearInterval(this.timer);
     }
     render() {
-        return(
-            <div id="clock" style={this.state.background} onClick={this.clicked}>
-                <h1 className={this.state.class}>{this.state.time}</h1>
-            </div>
-        )
+      return(
+        <p>{this.state.time}</p>
+      );
     }
-}
-
+  }
+  
+export default Clock
