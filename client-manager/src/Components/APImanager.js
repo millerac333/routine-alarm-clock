@@ -40,19 +40,25 @@ export default class APImanager {
     }
 
     static postAppTask = (body) => {
+        console.log(body)
         return fetch("https://localhost:5333/api/AppTasks", {
             "method": "POST",
             "headers": {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.getItem("RAC_token")}`, "Accept": "application/json"
             },
-            "body": JSON.stringify(
-                body
-            )
+            "body": JSON.stringify({
+                    TaskTitle: body[0].TaskTitle,
+                    Description: body[0].Description,
+                    AllotedTime: body[0].AllotedTime
+            })
         })
         .then(res => res.json())
         .then(theNewAppTask => {
             console.log(theNewAppTask)
+        })
+        .catch (err => {
+            err.log(err)
         })
 
     }

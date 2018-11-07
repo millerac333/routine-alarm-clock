@@ -31,14 +31,22 @@ class AppTaskList extends Component {
             )}
         )}
 
+        // addTask = () => {
+        //     APImanager.postAppTask("body")
+        //         .then(() => {
+        //             APImanager.getAllAppTasks()
+        //             .then(taskArray =>
+        //                 this.setState(() => {
+        //                     return { taskList: taskArray };
+        //             })
+        //         )}
+        //     )}
+
     render() {
 
         return ( 
             <Fragment>
-                {/* <Button variant = "contained" color = "primary" >
-                Create New Task 
-                </Button> */}
-                <AppTaskForm />
+                <AppTaskForm/>
                 {this.state.taskList.map(AppTask => {
                 return <AppTaskCard key={AppTask.AppTaskId}
                 AppTask={AppTask} deleteTask={this.deleteTask} /> })}

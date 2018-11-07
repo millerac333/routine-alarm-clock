@@ -14,7 +14,7 @@ export default class AppViews extends Component {
 
     state = {
      }
-     
+      
     render() {
         if (this.isAuthenticated()) {
         return (
