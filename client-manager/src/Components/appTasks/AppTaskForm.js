@@ -19,16 +19,29 @@ export default class AppTaskForm extends React.Component {
     this.setState({ open: false });
   };
 
+  state = {
+    TaskTitle: "",
+    Description: "",
+    AllotedTime: 0
+  }
+
+// Update state whenever an input field is edited
+handleFieldChange = (evt) => {
+    const stateToChange = {}
+    stateToChange[evt.target.id] = evt.target.value
+    this.setState(stateToChange)
+}
+
   render() {
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Open form dialog</Button>
+        <Button onClick={this.handleClickOpen}>Create New Task</Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
-          aria-labelledby="form-dialog-title"
+          aria-labelledby="newTask"
         >
-          <DialogTitle id="form-dialog-title">Edit Task</DialogTitle>
+          <DialogTitle id="newTask">Create New Task</DialogTitle>
           <DialogContent>
             
             <TextField
@@ -37,6 +50,7 @@ export default class AppTaskForm extends React.Component {
               id="TaskTitle"
               label="Task Title"
               type="text"
+              onChange={this.props.handleFieldChange}
               fullWidth
             />
             <TextField
@@ -45,12 +59,14 @@ export default class AppTaskForm extends React.Component {
               id="Description"
               label="Description"
               type="text"
+              onChange={this.props.handleFieldChange}
               fullWidth
             />
             <TextField
               id="AllotedTime"
               label="Alloted Time (minutes)"
               type="number"
+              onChange={this.props.handleFieldChange}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -62,7 +78,7 @@ export default class AppTaskForm extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.props.postAppTask} color="primary">
               Save
             </Button>
           </DialogActions>

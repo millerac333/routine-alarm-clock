@@ -1,7 +1,8 @@
 import React from 'react';
+//import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import SwipeableViews from 'react-swipeable-views';
+//import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -29,36 +30,38 @@ const styles = theme => ({
 
 class NavTabs extends React.Component {
   state = {
-    value: 0,
+    to: "",
   };
 
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
-
-  handleChangeIndex = index => {
-    this.setState({ value: index });
+  handleChange = (event, to) => {
+    this.setState({ to });
   };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes } = this.props;
 
     return (
       <div className={classes.root}>
         <AppBar position="static" color="default">
           <Tabs
-            value={this.state.value}
-            onChange={this.handleChange}
+            to={this.state.to}
+            onClick={this.handleChange}
             indicatorColor="primary"
             textColor="primary"
             fullWidth
           >
-            <Tab label="Clock" />
-            <Tab label="Tasks" />
-            <Tab label="Routines" />
+             
+            <Tab label="Clock" to="/Clock" />
+            
+           
+            <Tab label="Tasks"  to="/AppTaskList" />
+            
+            
+            <Tab label="Routines"  to="/RoutineList" />
+            
           </Tabs>
         </AppBar>
-        <SwipeableViews
+        {/* <SwipeableViews
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
           index={this.state.value}
           onChangeIndex={this.handleChangeIndex}
@@ -66,7 +69,7 @@ class NavTabs extends React.Component {
           <TabContainer dir={theme.direction}>Clock</TabContainer>
           <TabContainer dir={theme.direction}>Routines</TabContainer>
           <TabContainer dir={theme.direction}>Tasks</TabContainer>
-        </SwipeableViews>
+        </SwipeableViews> */}
       </div>
     );
   }

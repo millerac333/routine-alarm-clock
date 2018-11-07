@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 //import ReactDOM from 'react-dom';
 import Button from '@material-ui/core/Button';
-
-class RoutinesList extends Component {
+//import RoutineCard from './RoutineCard'
+class RoutineList extends Component {
     render() {
 
         return ( 
             <Button variant = "contained" color = "primary" >
-            Hello World 
+            Create New Routine 
             </Button>
+            // <RoutineCard/>
         );
     }
 }
 
-export default RoutinesList
+export default RoutineList

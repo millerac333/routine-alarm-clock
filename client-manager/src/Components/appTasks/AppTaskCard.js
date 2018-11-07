@@ -6,6 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import APImanager from '../APImanager'
 
 const styles = {
   card: {
@@ -26,7 +27,7 @@ const styles = {
 
 function AppTaskCard(props) {
   const { classes } = props;
-
+console.log(props)
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -34,18 +35,18 @@ function AppTaskCard(props) {
           Task
         </Typography>
         <Typography variant="h5" component="h2" gutterBottom>
-          Task Title
+          {props.AppTask.taskTitle}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          5 minutes
+          {props.AppTask.description}
         </Typography>
         <Typography component="p">
-          Description
+          {props.AppTask.allotedTime}
         </Typography>
       </CardContent>
       <CardActions>
         <Button size="small">Edit</Button>
-        <Button size="small">Delete</Button>
+        <Button onClick={()=> props.deleteTask(props.AppTask.appTaskId)} size="small">Delete</Button>
       </CardActions>
     </Card>
   );

@@ -1,6 +1,5 @@
 export default class APImanager {
 
-
     static getAllAppTasks = () => {
         return fetch("https://localhost:5333/api/AppTasks", {
             "method": "GET",
@@ -38,6 +37,24 @@ export default class APImanager {
             .catch(error => {
                 console.log(error)
             })
+    }
+
+    static postAppTask = (body) => {
+        return fetch("https://localhost:5333/api/AppTasks", {
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("RAC_token")}`, "Accept": "application/json"
+            },
+            "body": JSON.stringify(
+                body
+            )
+        })
+        .then(res => res.json())
+        .then(theNewAppTask => {
+            console.log(theNewAppTask)
+        })
+
     }
 
     static deleteAppTask = (id) => {
