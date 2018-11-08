@@ -34,18 +34,21 @@ function RoutineCard(props) {
           Routine
         </Typography>
         <Typography variant="h5" component="h2" gutterBottom>
-          Routine Title
+          {props.Routine.title}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          5 minutes
+          {props.Routine.destination}
         </Typography>
         <Typography component="p">
-          Destination
+          {props.Routine.allotedTime}
+        </Typography>
+        <Typography component="p">
+          {props.Routine.arrivalTime}
         </Typography>
       </CardContent>
       <CardActions>
         <Button size="small">Edit</Button>
-        <Button size="small">Delete</Button>
+        <Button onClick={()=> props.deleteOldRoutine(props.Routine.routineId)} size="small">Delete</Button>
         <Button size="small">Set Alarm</Button>
       </CardActions>
     </Card>

@@ -11,6 +11,9 @@ import APImanager from '../APImanager';
 export default class AppTaskForm extends React.Component {
   state = {
     open: false,
+    TaskTitle: "",
+    Description: "",
+    AllotedTime: 0
   };
 
   handleClickOpen = () => {
@@ -21,11 +24,11 @@ export default class AppTaskForm extends React.Component {
     this.setState({ open: false });
   };
 
-  state = {
-    TaskTitle: "",
-    Description: "",
-    AllotedTime: 0
-  }
+  // state = {
+  //   TaskTitle: "",
+  //   Description: "",
+  //   AllotedTime: 0
+  // }
 
   addTask = (evt) => {
 		evt.preventDefault();
@@ -42,17 +45,6 @@ export default class AppTaskForm extends React.Component {
 			}).then(this.handleClose)
 
 	}
-
-  // addTask = () => {
-  //   APImanager.postAppTask()
-  //       .then(() => {
-  //           APImanager.getAllAppTasks()
-  //           .then(taskArray =>
-  //               this.setState(() => {
-  //                   return { taskList: taskArray };
-  //           })
-  //       )}
-  //   )}
 
 // Update state whenever an input field is edited
 handleFieldChange = (evt) => {

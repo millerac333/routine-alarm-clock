@@ -5,10 +5,15 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import APImanager from '../APImanager'
 
 export default class RoutineForm extends React.Component {
   state = {
     open: false,
+    Title: "",
+    Destination: "",
+    AllotedTime: 0,
+    ArrivalTime: 0
   };
 
   handleClickOpen = () => {
@@ -18,6 +23,20 @@ export default class RoutineForm extends React.Component {
   handleClose = () => {
     this.setState({ open: false });
   };
+
+  addTask = (evt) => {
+		evt.preventDefault();
+		const newRoutine = this.state.routine;
+		newRoutine.push({});
+		this.setState({ routine: newRoutine });
+  }
+  
+  handleSubmit = (evt) => {
+    const addNewRoutine = [this.state];
+		APImanager.postRoutine(addNewRoutine)
+			.then(() =>{
+			}).then(this.handleClose)
+	}
 
   render() {
     return (
@@ -34,8 +53,8 @@ export default class RoutineForm extends React.Component {
             <TextField
               autoFocus
               margin="dense"
-              id="TaskTitle"
-              label="Routine Title"
+              id="Title"
+              label="Title"
               type="text"
               fullWidth
             />
@@ -58,10 +77,10 @@ export default class RoutineForm extends React.Component {
               fullWidth
             />
             <TextField
-                id="time"
-                label="Alarm clock"
+                id="Arrival Time"
+                label="Planned Arrival"
                 type="time"
-                defaultValue="07:30"
+                defaultValue="08:00"
                 //className={classes.textField}
                 InputLabelProps={{
                     shrink: true,
@@ -75,7 +94,7 @@ export default class RoutineForm extends React.Component {
             <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleClose} color="primary">
+            <Button onClick={this.handleSubmit} color="primary">
               Save
             </Button>
           </DialogActions>

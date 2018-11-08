@@ -104,13 +104,20 @@ export default class APImanager {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${localStorage.getItem("RAC_token")}`, "Accept": "application/json"
             },
-            "body": JSON.stringify(
-                body
-            )
-        })
-            .then(res => {
-                return res.json();
+            "body": JSON.stringify({
+                Title: body[0].Title,
+                Description: body[0].Description,
+                AllotedTime: body[0].AllotedTime,
+                ArrivalTime: body[0].AllotedTime
             })
+        })
+        .then(res => res.json())
+        .then(theNewRoutine => {
+            console.log(theNewRoutine)
+        })
+        .catch (err => {
+            err.log(err)
+        })
     }
 
     static deleteRoutine = (id) => {
