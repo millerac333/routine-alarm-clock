@@ -1,26 +1,36 @@
 import React from 'react';
-//import {Link} from 'react-router-dom'
+import {Link, Switch, Route} from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 //import SwipeableViews from 'react-swipeable-views';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
+//import Typography from '@material-ui/core/Typography';
+//import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
-function TabContainer({ children, dir }) {
-  return (
-    <Typography component="div" dir={dir} style={{ padding: 8 * 3 }}>
-      {children}
-    </Typography>
-  );
-}
+// function TabContainer(props) {
+//   return (
+//     <Typography component="div" style={{ padding: 8 * 3 }}>
+//       {props.children}
+//     </Typography>
+//   );
+// }
 
-TabContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-  dir: PropTypes.string.isRequired,
-};
+// TabContainer.propTypes = {
+//   children: PropTypes.node.isRequired,
+// };
 
+// const theme = createMuiTheme({
+//   {
+//     palette: {
+//       primary: {
+//         main: '#4db6ac',
+//       },
+//       secondary: amber,
+//     },
+//   },
+  
 const styles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
@@ -29,14 +39,13 @@ const styles = theme => ({
 });
 
 class NavTabs extends React.Component {
-  state = {
-    to: "",
-  };
+  // state = {
+  //   value: 0,
+  // };
 
-  handleChange = (event, to) => {
-    this.setState({ to });
-  };
-
+  // handleChange = ( value) => {
+  //   this.setState({ value });
+  // };
   render() {
     const { classes } = this.props;
 
@@ -44,32 +53,22 @@ class NavTabs extends React.Component {
       <div className={classes.root}>
         <AppBar position="static" color="default">
           <Tabs
-            to={this.state.to}
-            onClick={this.handleChange}
+            // to={this.state.to}
+            // onClick={this.handleChange}
             indicatorColor="primary"
             textColor="primary"
             fullWidth
           >
-             
-            <Tab label="Clock" to="/Clock" />
-            
-           
-            <Tab label="Tasks"  to="/AppTaskList" />
-            
-            
-            <Tab label="Routines"  to="/RoutineList" />
-            
+            <Tab label="Clock" value="/Clock" component={Link} to="/Clock" />
+            <Tab label="Tasks" value="/AppTaskList" component={Link} to="/AppTaskList" />
+            <Tab label="Routines" value="/RoutineList" component={Link} to="/RoutineList" />
           </Tabs>
         </AppBar>
-        {/* <SwipeableViews
-          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          index={this.state.value}
-          onChangeIndex={this.handleChangeIndex}
-        >
-          <TabContainer dir={theme.direction}>Clock</TabContainer>
-          <TabContainer dir={theme.direction}>Routines</TabContainer>
-          <TabContainer dir={theme.direction}>Tasks</TabContainer>
-        </SwipeableViews> */}
+          <Switch>
+            <Route path="/Clock" render={() => <div>Clock</div>} />
+            <Route path="/AppTaskList" render={() => <div>Task List</div>} />
+            <Route path="/RoutineList" render={() => <div>Routine List</div>} />
+          </Switch>
       </div>
     );
   }

@@ -11,6 +11,15 @@ class AppTaskList extends Component {
         taskList: []
     }
 
+     renderList= () => {
+        APImanager.getAllAppTasks()
+            .then(taskArray =>
+				this.setState(() => {
+                    return { taskList: taskArray }
+                })
+            )
+        }
+			
     componentDidMount() {
 		APImanager.getAllAppTasks()
             .then(taskArray =>
@@ -35,7 +44,7 @@ class AppTaskList extends Component {
 
         return ( 
             <Fragment>
-                <AppTaskForm/>
+                <AppTaskForm renderList={this.renderList}/>
                 {this.state.taskList.map(AppTask => {
                     return <AppTaskCard key={AppTask.AppTaskId}
                     AppTask={AppTask} deleteTask={this.deleteTask} /> })}
