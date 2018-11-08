@@ -106,9 +106,9 @@ export default class APImanager {
             },
             "body": JSON.stringify({
                 Title: body[0].Title,
-                Description: body[0].Description,
+                Destination: body[0].Destination,
                 AllotedTime: body[0].AllotedTime,
-                ArrivalTime: body[0].AllotedTime
+                ArrivalTime: body[0].ArrivalTime
             })
         })
         .then(res => res.json())

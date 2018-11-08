@@ -24,7 +24,7 @@ export default class RoutineForm extends React.Component {
     this.setState({ open: false });
   };
 
-  addTask = (evt) => {
+  addRoutine = (evt) => {
 		evt.preventDefault();
 		const newRoutine = this.state.routine;
 		newRoutine.push({});
@@ -36,7 +36,13 @@ export default class RoutineForm extends React.Component {
 		APImanager.postRoutine(addNewRoutine)
 			.then(() =>{
 			}).then(this.handleClose)
-	}
+  }
+  // Update state whenever an input field is edited
+  handleFieldChange = (evt) => {
+    const stateToChange = {}
+    stateToChange[evt.target.id] = evt.target.value
+    this.setState(stateToChange)
+  }
 
   render() {
     return (
@@ -56,6 +62,7 @@ export default class RoutineForm extends React.Component {
               id="Title"
               label="Title"
               type="text"
+              onChange={this.handleFieldChange}
               fullWidth
             />
             <TextField
@@ -64,12 +71,14 @@ export default class RoutineForm extends React.Component {
               id="Destination"
               label="Destination"
               type="text"
+              onChange={this.handleFieldChange}
               fullWidth
             />
             <TextField
               id="AllotedTime"
               label="Alloted Time (minutes)"
               type="number"
+              onChange={this.handleFieldChange}
               InputLabelProps={{
                 shrink: true,
               }}
@@ -80,6 +89,7 @@ export default class RoutineForm extends React.Component {
                 id="Arrival Time"
                 label="Planned Arrival"
                 type="time"
+                onChange={this.handleFieldChange}
                 defaultValue="08:00"
                 //className={classes.textField}
                 InputLabelProps={{
