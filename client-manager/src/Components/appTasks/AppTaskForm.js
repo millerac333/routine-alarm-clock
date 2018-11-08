@@ -14,7 +14,7 @@ export default class AppTaskForm extends React.Component {
     TaskTitle: "",
     Description: "",
     AllotedTime: 0,
-    taskList: this.props.taskArray
+    renderList: this.props.renderList
   };
 
   handleClickOpen = () => {
@@ -37,13 +37,9 @@ export default class AppTaskForm extends React.Component {
 		const addNewTask = [this.state];
 		APImanager.postAppTask(addNewTask)
 			.then(() =>{
-			}).then(this.handleClose).then(taskArray =>
-        this.setState(() => {
-            return { taskList: this.props.taskArray }
-        })
-      )
-    }  
-
+			}).then(this.handleClose).then(this.props.renderList)
+        }
+      
 // Update state whenever an input field is edited
 handleFieldChange = (evt) => {
     const stateToChange = {}

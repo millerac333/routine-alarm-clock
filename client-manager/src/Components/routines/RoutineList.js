@@ -9,6 +9,15 @@ class RoutineList extends Component {
         routineList: []
     }
 
+    renderList= () => {
+        APImanager.getAllRoutines()
+            .then(routineArray =>
+				this.setState(() => {
+                    return { routineList: routineArray }
+                })
+            )
+        }
+
     componentDidMount() {
 		APImanager.getAllRoutines()
             .then(routineArray =>
@@ -33,7 +42,7 @@ class RoutineList extends Component {
 
         return ( 
             <Fragment>
-                <RoutineForm />
+                <RoutineForm renderList={this.renderList} />
                 {this.state.routineList.map(Routine => {
                     return <RoutineCard key={Routine.RoutineId} 
                     Routine={Routine} deleteOldRoutine={this.deleteOldRoutine} /> })}

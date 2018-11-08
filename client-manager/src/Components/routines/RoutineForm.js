@@ -13,7 +13,8 @@ export default class RoutineForm extends React.Component {
     Title: "",
     Destination: "",
     AllotedTime: 0,
-    ArrivalTime: 0
+    ArrivalTime: 0,
+    renderList: this.props.renderList
   };
 
   handleClickOpen = () => {
@@ -35,7 +36,7 @@ export default class RoutineForm extends React.Component {
     const addNewRoutine = [this.state];
 		APImanager.postRoutine(addNewRoutine)
 			.then(() =>{
-			}).then(this.handleClose)
+			}).then(this.handleClose).then(this.props.renderList)
   }
   // Update state whenever an input field is edited
   handleFieldChange = (evt) => {
