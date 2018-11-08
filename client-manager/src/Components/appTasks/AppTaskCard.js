@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 //import APImanager from '../APImanager'
+import {Link} from 'react-router-dom'
 
 const styles = {
   card: {
@@ -45,7 +46,10 @@ console.log(props)
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Edit</Button>
+        {/* <Button onClick={() => this.props.history.push(`/AppTask/edit/${this.props.AppTask.appTaskId}`)} size="small">Edit</Button> */}
+        <Button size="small">
+          <Link to={`/AppTask/edit/${props.AppTask.appTaskId}`}>
+          Edit</Link></Button>
         <Button onClick={()=> props.deleteTask(props.AppTask.appTaskId)} size="small">Delete</Button>
       </CardActions>
     </Card>

@@ -47,7 +47,8 @@ class AppTaskList extends Component {
                 <AppTaskForm renderList={this.renderList}/>
                 {this.state.taskList.map(AppTask => {
                     return <AppTaskCard key={AppTask.AppTaskId}
-                    AppTask={AppTask} deleteTask={this.deleteTask} /> })}
+                    AppTask={AppTask} deleteTask={this.deleteTask}
+                    renderList={this.renderList} /> })}
             </Fragment>
         );
     }
