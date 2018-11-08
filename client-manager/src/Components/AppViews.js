@@ -5,6 +5,7 @@ import UserLogin from './auth/LoginForm';
 import AppTaskList from './appTasks/AppTaskList';
 import RoutineList from './routines/RoutineList';
 import Home from "./Home"
+import EditAppTask from "./appTasks/EditAppTask"
 
 export default class AppViews extends Component {
     
@@ -22,6 +23,7 @@ export default class AppViews extends Component {
                     <Route exact path="/" component={Home} />
                     <Route exact path="/AppTaskList" component={AppTaskList} />
                     <Route exact path="/RoutineList" component={RoutineList} />
+                    <Route exact path="/AppTask/edit/:id" component={EditAppTask} />
                 </React.Fragment>
                 )
             } else {

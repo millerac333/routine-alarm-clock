@@ -54,9 +54,9 @@ export default class APImanager {
             })
         })
         .then(res => res.json())
-        .then(theNewAppTask => {
-            console.log(theNewAppTask)
-        })
+        // .then(theNewAppTask => {
+        //     console.log(theNewAppTask)
+        // })
         .catch (err => {
             err.log(err)
         })
