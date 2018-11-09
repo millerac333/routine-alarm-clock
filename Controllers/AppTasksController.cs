@@ -51,8 +51,9 @@ namespace RoutineAlarmClockAPI.Controllers
 
             var appTask = await _context.AppTask
                             .Include(t => t.AppUser)
-                            .FirstOrDefaultAsync(t => t.AppUser == user);
-                            //.SingleAsync();
+                            .Where(t => t.AppUser == user)
+                            .Where(t => t.AppTaskId == id)
+                            .SingleAsync();
 
             if (appTask == null)
             {
@@ -62,40 +63,43 @@ namespace RoutineAlarmClockAPI.Controllers
             return Ok(appTask);
         }
 
-        // PUT: api/AppTasks/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutAppTask([FromRoute] int id, [FromBody] AppTask appTask)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        //PUT: api/AppTasks/5
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAppTask([FromRoute] int id, [FromBody] AppTask appTask)
+        {
+            var user = _context.AppUser.SingleOrDefault(u => u.UserName == User.Identity.Name);
+            appTask.AppUser = user;
 
-        //    if (id != appTask.AppTaskId)
-        //    {
-        //        return BadRequest();
-        //    }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    _context.Entry(appTask).State = EntityState.Modified;
+            if (id != appTask.AppTaskId)
+            {
+                return BadRequest();
+            }
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!AppTaskExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            _context.Entry(appTask).State = EntityState.Modified;
 
-        //    return NoContent();
-        //}
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AppTaskExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            var taco = _context.AppTask.Find(id);
+            return Ok(taco);
+        }
 
         // POST: api/AppTasks
         [HttpPost]

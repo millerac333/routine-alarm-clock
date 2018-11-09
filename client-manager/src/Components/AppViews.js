@@ -1,10 +1,9 @@
 import { Route } from 'react-router-dom';
 import React, { Component } from "react";
-// import Clock from '../clock/Clock'
+import Clock from './clock/Clock'
 import UserLogin from './auth/LoginForm';
 import AppTaskList from './appTasks/AppTaskList';
 import RoutineList from './routines/RoutineList';
-import Home from "./Home"
 import EditAppTask from "./appTasks/EditAppTask"
 
 export default class AppViews extends Component {
@@ -20,7 +19,7 @@ export default class AppViews extends Component {
         if (this.isAuthenticated()) {
         return (
                 <React.Fragment>
-                    <Route exact path="/" component={Home} />
+                    <Route exact path="/Clock" component={Clock} />
                     <Route exact path="/AppTaskList" component={AppTaskList} />
                     <Route exact path="/RoutineList" component={RoutineList} />
                     <Route exact path="/AppTask/edit/:id" component={EditAppTask} />

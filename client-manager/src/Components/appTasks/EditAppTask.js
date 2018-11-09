@@ -72,7 +72,7 @@ export default class AnimalEdit extends Component {
           }
         return (
             <Fragment>
-                <form>
+                <form >
                 <TextField
                     autoFocus
                     margin="dense"
@@ -81,8 +81,10 @@ export default class AnimalEdit extends Component {
                     type="text"
                     onChange={this.handleFieldChange}
                     value={this.state.TaskTitle}
-                    fullWidth
+                    halfWidth
+                    center
                 />
+                <br/>
                 <TextField
                     autoFocus
                     margin="dense"
@@ -91,8 +93,10 @@ export default class AnimalEdit extends Component {
                     type="text"
                     onChange={this.handleFieldChange}
                     value={this.state.Description}
-                    fullWidth
+                    halfWidth
+                    center
                 />
+                <br/>
                 <TextField
                     id="AllotedTime"
                     label="Alloted Time (minutes)"
@@ -103,8 +107,10 @@ export default class AnimalEdit extends Component {
                         shrink: true,
                     }}
                     margin="dense"
-                    fullWidth
+                    halfWidth
+                    center
                 />
+                <br/>
                 <Button onClick={this.handleClose} color="primary">
                 Cancel
                 </Button>
