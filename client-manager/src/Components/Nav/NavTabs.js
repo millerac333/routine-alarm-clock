@@ -21,20 +21,10 @@ import Tab from '@material-ui/core/Tab';
 //   children: PropTypes.node.isRequired,
 // };
 
-// const theme = createMuiTheme({
-//   {
-//     palette: {
-//       primary: {
-//         main: '#4db6ac',
-//       },
-//       secondary: amber,
-//     },
-//   },
   
 const styles = theme => ({
   root: {
     backgroundColor: theme.palette.background.paper,
-    width: 500,
   },
 });
 
@@ -64,10 +54,11 @@ class NavTabs extends React.Component {
             <Tab label="Routines" value="/RoutineList" component={Link} to="/RoutineList" />
           </Tabs>
         </AppBar>
+        <br/>
           <Switch>
-            <Route path="/Clock" render={() => <div>Clock</div>} />
-            <Route path="/AppTaskList" render={() => <div>Task List</div>} />
-            <Route path="/RoutineList" render={() => <div>Routine List</div>} />
+            <Route path="/Clock" render={() => <div><center><h3>Clock</h3></center></div>} />
+            <Route path="/AppTaskList" render={() => <div><center><h3>Task List</h3></center></div>} />
+            <Route path="/RoutineList" render={() => <div><center><h3>Routine List</h3></center></div>} />
           </Switch>
       </div>
     );

@@ -48,7 +48,7 @@ export default class RoutineForm extends React.Component {
   render() {
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Open form dialog</Button>
+        <Button onClick={this.handleClickOpen}>CREATE ROUTINE</Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
