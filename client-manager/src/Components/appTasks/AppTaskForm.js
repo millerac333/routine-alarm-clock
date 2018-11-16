@@ -6,7 +6,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import APImanager from '../APImanager';
-//import APImanager from '../APImanager'
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import theme from '../../theme';
 
 export default class AppTaskForm extends React.Component {
   state = {
@@ -49,8 +50,9 @@ handleFieldChange = (evt) => {
 
   render() {
     return (
+      <MuiThemeProvider theme ={theme}>
       <div>
-        <Button onClick={this.handleClickOpen}>Create New Task</Button>
+        <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>Create New Task</Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -100,6 +102,7 @@ handleFieldChange = (evt) => {
           </DialogActions>
         </Dialog>
       </div>
+      </MuiThemeProvider>
     );
   }
 }

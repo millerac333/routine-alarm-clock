@@ -8,10 +8,15 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 //import APImanager from '../APImanager'
 import {Link} from 'react-router-dom'
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import theme from '../../theme';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = {
   card: {
     minWidth: 275,
+    backgroundColor: '#EFEFEF'
   },
   bullet: {
     display: 'inline-block',
@@ -31,29 +36,36 @@ function AppTaskCard(props) {
   const { classes } = props;
 console.log(props)
   return (
+    <MuiThemeProvider theme={theme}>
     <Card className={classes.card}>
       <CardContent>
-        <Typography className={classes.title} color="textSecondary">
+        <Typography className={classes.title} color="secondary">
           Task
         </Typography>
-        <Typography variant="h5" component="h2" gutterBottom>
+        <Typography variant="h5" component="h2" color="primary" gutterBottom>
           {props.AppTask.taskTitle}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
           {props.AppTask.description}
         </Typography>
         <Typography component="p">
-          {props.AppTask.allotedTime}
+          {props.AppTask.allotedTime} minutes
         </Typography>
       </CardContent>
       <CardActions>
         {/* <Button onClick={() => this.props.history.push(`/AppTask/edit/${this.props.AppTask.appTaskId}`)} size="small">Edit</Button> */}
         <Button size="small">
           <Link to={`/AppTask/edit/${props.AppTask.appTaskId}`}>
-          Edit</Link></Button>
-        <Button onClick={()=> props.deleteTask(props.AppTask.appTaskId)} size="small">Delete</Button>
+          Edit
+          </Link>
+        </Button>
+        <IconButton className="material-icons" color="primary" aria-label="Delete" onClick={()=> props.deleteTask(props.AppTask.appTaskId)}>
+          <DeleteIcon />
+        </IconButton>
+        {/* <Button onClick={()=> props.deleteTask(props.AppTask.appTaskId)} size="small">Delete</Button> */}
       </CardActions>
     </Card>
+    </MuiThemeProvider>
   );
 }
 
