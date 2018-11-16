@@ -21,21 +21,25 @@ import Tab from '@material-ui/core/Tab';
 //   children: PropTypes.node.isRequired,
 // };
 
-  
-const styles = theme => ({
-  root: {
-    backgroundColor: theme.palette.background.paper,
-  },
-});
+const navStyle= {
+  backgroundColor: '#220000',
+  color: '#fff',
+}
+
+// const styles = theme => ({
+//   root: {
+//     backgroundColor: theme.palette.background.default,
+//   },
+// });
 
 class NavTabs extends React.Component {
-  // state = {
-  //   value: 0,
-  // };
+  state = {
+    value: 0
+  };
 
-  // handleChange = ( value) => {
-  //   this.setState({ value });
-  // };
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
   render() {
     const { classes } = this.props;
 
@@ -43,10 +47,11 @@ class NavTabs extends React.Component {
       <div className={classes.root}>
         <AppBar position="static" color="default">
           <Tabs
-            // to={this.state.to}
-            // onClick={this.handleChange}
-            indicatorColor="primary"
-            textColor="primary"
+            value={this.state.value}
+            onChange={this.handleChange}
+            indicatorColor={"secondary"}
+            centered
+            style={navStyle}           
             fullWidth
           >
             <Tab label="Clock" value="/Clock" component={Link} to="/Clock" />
@@ -66,8 +71,8 @@ class NavTabs extends React.Component {
 }
 
 NavTabs.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
+  classes: PropTypes.object,
+  theme: PropTypes.object,
 };
 
-export default withStyles(styles, { withTheme: true })(NavTabs);
+export default withStyles(navStyle, { withTheme: true })(NavTabs);
